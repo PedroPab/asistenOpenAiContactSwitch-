@@ -1,10 +1,10 @@
 //managerListContactDisable , recoger el contexto , y mira si el mensaje esta en un formato especifico , con nuestro pseudo lenguaje para agregar o eliminar contactos desactivados
 
-import { Context } from "@builderbot/bot";
-import { BaileysProvider } from "@builderbot/provider-baileys";
+// import { Context } from "@builderbot/bot";
+// import { BaileysProvider } from "@builderbot/provider-baileys";
 import { listContactDisable } from "./listContactDisable";
 
-export const managerListContactDisable = async (ctx: Context<BaileysProvider>) => {
+export const managerListContactDisable = async (ctx: any):Promise<any> => {
   const { body } = ctx;
 
   const action = body.split("=>")[0];

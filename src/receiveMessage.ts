@@ -1,8 +1,8 @@
 //miramos el contexto del mensaje, ya sea texto, imagen o audio para devolver el mensaje en texto
-import { Context } from "@builderbot/bot";
-import { BaileysProvider } from "@builderbot/provider-baileys";
+// import { Context } from "@builderbot/bot";
+// import { BaileysProvider } from "@builderbot/provider-baileys";
 
-export const receiveMessage = async (ctx: Context<BaileysProvider>) => {
+export const receiveMessage = async (ctx: any) => {
   const { from, body } = ctx;
   // if (body) {
   //   return body;
