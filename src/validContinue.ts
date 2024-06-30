@@ -9,8 +9,7 @@ import { listContactDisable } from "./listContactDisable";
 export const validContinue = async (ctx: Context<BaileysProvider>) => {
   //miramos si esta en la lista de contactos desactivados
   const {from} = ctx;
-  const listContactsDisable = listContactDisable.listContactsDisable
-  if(listContactsDisable.includes(from)){
+  if(listContactDisable.isContactDisable(from)){
     return false;
   }
   return true;

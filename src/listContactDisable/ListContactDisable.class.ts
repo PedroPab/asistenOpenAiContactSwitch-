@@ -1,6 +1,6 @@
 //crear una clase para guardar los contactos desactivados
 export class ListContactDisable{
-  public listContactsDisable: string[] = [];
+  private listContactsDisable: string[] = [];
   //añadir un contacto a la lista de contactos desactivados
   addContactDisable(contact: string){
     this.listContactsDisable.push(contact);
