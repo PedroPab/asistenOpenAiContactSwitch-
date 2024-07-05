@@ -34,6 +34,21 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME).addAction(
     const response = await toAsk(ASSISTANT_ID, messageIncoming, state);
     const chunks = response.split(/\n\n+/);
     for (const chunk of chunks) {
+
+      //miramos si el mensaje es un comando para agregar una imagen o un video
+      //el comando debe es cuando el mensaje empieza con corchetes y termina con corchetes con una url en medio
+      const regex = /\[(.*?)\]/;
+      const isCommand = regex.test(chunk);
+      // if (isCommand) {
+      if (isCommand || !isCommand) {
+        // const url = chunk.match(regex)[1];
+        const url = 'public/img/img01.jpg'
+
+        const type = chunk.includes("image") ? "image" : "video";
+        await provider.sendMedia("+573054489598", url, 'hola');
+        continue;
+      }
+
       await flowDynamic([{ body: chunk.trim() }]);
     }
   }
