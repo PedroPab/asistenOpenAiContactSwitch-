@@ -14,6 +14,8 @@ import { typing } from "./utils/presence";
 import { validContinue } from "./validContinue";
 import { receiveMessage } from "./receiveMessage";
 import { managerListContactDisable } from "./managerListContactDisable";
+import { chunkIsCommand, extractURL} from "./sendMediaForMessages";
+import { classifyTypeMedia } from "./classifyTypeMedia";
 
 const PORT = process.env?.PORT ?? 3008;
 const ASSISTANT_ID = process.env?.ASSISTANT_ID ?? "";
@@ -34,18 +36,13 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME).addAction(
     const response = await toAsk(ASSISTANT_ID, messageIncoming, state);
     const chunks = response.split(/\n\n+/);
     for (const chunk of chunks) {
-
-      //miramos si el mensaje es un comando para agregar una imagen o un video
-      //el comando debe es cuando el mensaje empieza con corchetes y termina con corchetes con una url en medio
-      const regex = /\[(.*?)\]/;
-      const isCommand = regex.test(chunk);
-      // if (isCommand) {
-      if (isCommand || !isCommand) {
-        // const url = chunk.match(regex)[1];
-        const url = 'public/img/img01.jpg'
-
-        const type = chunk.includes("image") ? "image" : "video";
-        await provider.sendMedia("+573054489598", url, 'hola');
+      if (chunkIsCommand(chunk)) {
+        const numberPhone = ctx.key.remoteJid;
+        const url = extractURL(chunk)
+        const type = classifyTypeMedia(url);
+        //los archivos deben estar en la carpeta public en al subcarpeta de su tipo
+        const urlPublic = `public/${type}/${url}`;
+        await provider.sendMedia(numberPhone, urlPublic , '');
         continue;
       }
 
