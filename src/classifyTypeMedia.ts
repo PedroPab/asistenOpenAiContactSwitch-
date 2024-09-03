@@ -6,7 +6,7 @@ export const classifyTypeMedia = (url: string) => {
     return 'img';
   }
   if (extension === 'mp4') {
-    return 'video';
+    return 'vid';
   }
   if (extension === 'mp3') {
     return 'audio';
